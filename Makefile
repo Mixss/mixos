@@ -1,20 +1,45 @@
-all: mixos
+FILES = ./build/kernel.asm.o ./build/kernel.o ./build/idt.asm.o ./build/idt.o ./build/memory.o ./build/tty.o ./build/stdio.o ./build/sysutils.o
+INCLUDES = -I./kernel
+FLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc
 
-mixos: ./isodir/boot/mixsos.bin
-	grub-mkrescue -o system.iso isodir
+all: ./bin/boot.bin ./bin/kernel.bin
+	rm -rf ./bin/os.bin
+	dd if=./bin/boot.bin >> ./bin/os.bin
+	dd if=./bin/kernel.bin >> ./bin/os.bin
+	dd if=/dev/zero bs=512 count=100 >> ./bin/os.bin
 
-./isodir/boot/mixsos.bin:  boot.o kernel.o stdio.o tty.o
-	i386-elf-gcc -T ./kernel/arch/linker.ld -o ./isodir/boot/mixos.bin -ffreestanding -O2 -nostdlib ./build/boot.o ./build/kernel.o ./build/stdio.o ./build/tty.o -lgcc
+./bin/kernel.bin: $(FILES)
+	i686-elf-ld -g -relocatable $(FILES) -o ./build/kernelfull.o
+	i686-elf-gcc $(FLAGS) -T ./kernel/linker.ld -o ./bin/kernel.bin -ffreestanding -O0 -nostdlib ./build/kernelfull.o
 
-kernel.o: 
-	i386-elf-gcc -c ./kernel/kernel.c -o ./build/kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -I ./kernel/include/
+./bin/boot.bin: ./kernel/boot/boot.asm
+	nasm -f bin ./kernel/boot/boot.asm -o ./bin/boot.bin
 
-boot.o: 
-	nasm -felf ./kernel/arch/boot.asm -o ./build/boot.o
+./build/kernel.asm.o: ./kernel/kernel.asm
+	nasm -f elf ./kernel/kernel.asm -o ./build/kernel.asm.o
 
-stdio.o: 
-	i386-elf-gcc -c ./kernel/stdio.c -o ./build/stdio.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -I ./kernel/include/
-tty.o:
-	i386-elf-gcc -c ./kernel/arch/tty.c -o ./build/tty.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -I ./kernel/include/
+./build/idt.asm.o: ./kernel/idt/idt.asm
+	nasm -f elf ./kernel/idt/idt.asm -o ./build/idt.asm.o
+
+./build/kernel.o: ./kernel/kernel.c
+	i686-elf-gcc $(INCLUDES) $(FLAGS) -std=gnu99 -c ./kernel/kernel.c -o ./build/kernel.o
+
+./build/idt.o: ./kernel/idt/idt.c
+	i686-elf-gcc $(INCLUDES) -I./kernel/idt $(FLAGS) -std=gnu99 -c ./kernel/idt/idt.c -o ./build/idt.o
+
+./build/memory.o: ./kernel/memory/memory.c
+	i686-elf-gcc $(INCLUDES) -I./kernel/memory $(FLAGS) -std=gnu99 -c ./kernel/memory/memory.c -o ./build/memory.o
+
+./build/tty.o: ./kernel/tty/tty.c
+	i686-elf-gcc $(INCLUDES) $(FLAGS) -std=gnu99 -c ./kernel/tty/tty.c -o ./build/tty.o
+
+./build/stdio.o: ./kernel/stdio/stdio.c
+	i686-elf-gcc $(INCLUDES) $(FLAGS) -std=gnu99 -c ./kernel/stdio/stdio.c -o ./build/stdio.o
+
+./build/sysutils.o: ./kernel/sysutils/sysutils.c
+	i686-elf-gcc $(INCLUDES) $(FLAGS) -std=gnu99 -c ./kernel/sysutils/sysutils.c -o ./build/sysutils.o
+
+
 clean:
-	rm ./build/*
+	rm -rf ./bin/*
+	rm -rf ./build/*

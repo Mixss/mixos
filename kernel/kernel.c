@@ -1,8 +1,12 @@
-#include "tty.h"
-#include "stdio.h"
+#include "stdio/stdio.h"
+#include "idt/idt.h"
+#include "tty/tty.h"
 
 extern void kernel_main(){
     terminal_init();
-    print("Notice how in the code you wished \nto use the common C function strlen, but this function is part \nof the C standard ");
+
+    print("Welcome to mixOs!\n");
+
+    idt_init();
     return;
 }
