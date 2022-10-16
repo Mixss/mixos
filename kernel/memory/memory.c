@@ -9,3 +9,7 @@ void* memset(void* ptr, int c, size_t size)
     }
     return ptr;
 }
+
+void *malloc(size_t size) {
+    ;
+}
