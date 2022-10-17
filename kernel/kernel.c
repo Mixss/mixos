@@ -4,8 +4,9 @@
 #include "io/io.h"
 
 extern void kernel_main(){
-    terminal_init();
     idt_init();
+    terminal_init();
+    enable_interrupts();
 
     print("Welcome to mixOs!\n");
     
