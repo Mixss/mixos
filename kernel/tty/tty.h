@@ -10,5 +10,7 @@ static int terminal_column;
 
 void terminal_init();
 void terminal_putchar(char c, int x, int y);
+char get_char_from_video_mem(int x, int y);
+void scroll_terminal(int n); // scroll terminal n lines down
 
 #endif

@@ -5,13 +5,18 @@ void putchar(char c){
     if(c == '\n') {
         terminal_column += 1;
         terminal_row = 0;
-        return;
     }
-    terminal_putchar(c, terminal_row, terminal_column);
-    terminal_row++;
-    if(terminal_row == VGA_WIDTH){
-        terminal_column += 1;
-        terminal_row = 0;
+    else {
+        terminal_putchar(c, terminal_row, terminal_column);
+        terminal_row++;
+        if(terminal_row == VGA_WIDTH){
+            terminal_column += 1;
+            terminal_row = 0;
+        }
+    }
+    if(terminal_column == VGA_HEIGHT+1) {
+        scroll_terminal(1);
+        terminal_column--;
     }
 }
 

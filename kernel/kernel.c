@@ -10,5 +10,7 @@ extern void kernel_main(){
 
     print("Welcome to mixOs!\n");
     
+
+    
     return;
 }
