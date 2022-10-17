@@ -13,8 +13,11 @@ extern void idt_load(struct idtr_desc* ptr);
 extern void int21();
 
 void int21_handler(){
-    print("Keyboard press!\n");
+    //print("Keyboard press!\n");
     outb(0x20, 0x20);
+    unsigned char code = insb(0x60);
+    print_int(code);
+    print("\n");
 }
 
 void idt_zero()
