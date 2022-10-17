@@ -1,4 +1,5 @@
 #include "tty.h"
+#include "../io/io.h"
 
 void terminal_init(){
     terminal_row = 0;
@@ -9,6 +10,10 @@ void terminal_init(){
             terminal_putchar(' ', j, i);
         }
     }
+
+    // disable cursor
+    outb(0x3D4, 0x0A);
+	outb(0x3D5, 0x20);
 }
 
 void terminal_putchar(char c, int x, int y){
