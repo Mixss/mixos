@@ -12,10 +12,9 @@ extern void kernel_main(){
     int quit = 0;
     while(quit != 1) {
         
-        int scancode = get_keyboard_scancode();
-        if(scancode != 0){
-            print_int(scancode);
-            print("  ");
+        char key = get_key_pressed();
+        if(key != 0){
+            putchar(key);
         }
    
     }
