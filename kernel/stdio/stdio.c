@@ -19,6 +19,19 @@ void putchar(char c){
         terminal_column--;
     }
 }
+int get_current_terminal_row(){
+    return terminal_row;
+}
+int get_current_terminal_column(){
+    return terminal_column;
+}
+
+void set_terminal_row(int row){
+    terminal_row = row;
+}
+void set_terminal_column(int column){
+    terminal_column = column;
+}
 
 void print(char* s){
     while(*s!=0){

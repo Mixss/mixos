@@ -1,10 +1,6 @@
 #include "stdio/stdio.h"
 #include "idt/idt.h"
 #include "tty/tty.h"
-#include "io/io.h"
-#include "io/keyboard.h"
-
-
 
 extern void kernel_main(){
     init();
@@ -12,10 +8,8 @@ extern void kernel_main(){
     int quit = 0;
     while(quit != 1) {
         
-        char key = get_key_pressed();
-        if(key != 0){
-            putchar(key);
-        }
+        terminal_handler();
+        
    
     }
     

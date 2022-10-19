@@ -41,7 +41,7 @@ unsigned char get_key_pressed(){
     if(scancode == SCAN_CODE_PRESSED_P) return 'p';
     if(scancode == SCAN_CODE_PRESSED_OPEN_SQUARE_BRACKET) return '[';
     if(scancode == SCAN_CODE_PRESSED_CLOSE_SQUARE_BRACKET) return ']';
-    if(scancode == SCAN_CODE_PRESSED_RETURN) return '\r';
+    if(scancode == SCAN_CODE_PRESSED_RETURN) return '\n';
     if(scancode == SCAN_CODE_PRESSED_CTRL) return '\x1d';
     if(scancode == SCAN_CODE_PRESSED_A) return 'a';
     if(scancode == SCAN_CODE_PRESSED_S) return 's';

@@ -1,5 +1,24 @@
 #include "tty.h"
 #include "../io/io.h"
+#include "../stdio/stdio.h"
+void terminal_handler(){
+    char key = get_key_pressed();
+    if(key == 0) return;
+    if(key == '\b'){
+        if(command_length>0){
+            command_length--;
+            terminal_backspace();
+        }
+        return;
+    }
+    command_length++;
+    putchar(key);
+
+}
+
+void start_new_command_entry(){
+    print("\n> ");
+}
 
 void terminal_init(){
     terminal_row = 0;
@@ -14,6 +33,13 @@ void terminal_init(){
     // disable cursor
     outb(0x3D4, 0x0A);
 	outb(0x3D5, 0x20);
+}
+
+void terminal_backspace(){
+    terminal_row = get_current_terminal_row();
+    terminal_column = get_current_terminal_column();
+    set_terminal_row(terminal_row - 1);
+    terminal_putchar(' ', terminal_row - 1, terminal_column);
 }
 
 void terminal_putchar(char c, int x, int y){
