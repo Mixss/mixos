@@ -11,13 +11,21 @@ struct idtr_desc idtr_descriptor;
 extern void idt_load(struct idtr_desc* ptr);
 
 extern void int21();
+extern void no_int();
 
 void int21_handler(){
-    //print("Keyboard press!\n");
+    
+    unsigned char* scancode_address = KEYBOARD_SCAN_CODE_VALUE_ADDRESS;
+
     outb(0x20, 0x20);
     unsigned char code = insb(0x60);
-    print_int(code);
-    print("\n");
+
+    // putting scan code pressed to special address
+    *scancode_address = code;
+}
+
+void no_interrupt_handler(){
+    outb(0x20, 0x20);
 }
 
 void idt_zero()

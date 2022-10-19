@@ -1,6 +1,7 @@
 section .asm
 
 extern int21_handler
+extern no_interrupt_handler
 
 global enable_interrupts
 enable_interrupts:
@@ -33,11 +34,9 @@ int21:
 
 global no_int
 no_int:
-    push ebp
-    mov ebp, esp
-    mov dx, 0x20
-    mov al, 0x20
-
-    out dx, al
-    pop ebp
+    cli
+    pushad
+    call no_interrupt_handler
+    popad
+    sti
     iret
