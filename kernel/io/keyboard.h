@@ -80,5 +80,6 @@
 // if function returns 0 it means that any key wasn't pressed/released
 unsigned char get_keyboard_scancode();
 unsigned char get_key();
+unsigned char scancode_to_ASCII(unsigned char scancode, int shift_pressed);
 
 #endif

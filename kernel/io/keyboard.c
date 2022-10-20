@@ -25,8 +25,11 @@ unsigned char get_key(){
         *shift_pressed = 0;
         return 0;
     }
+    return scancode_to_ASCII(scancode, *shift_pressed);
+}
 
-    if(*shift_pressed == 0) { //shift is not pressed
+unsigned char scancode_to_ASCII(unsigned char scancode, int shift_pressed){
+    if(shift_pressed == 0) { //shift is not pressed
         if(scancode == SCAN_CODE_PRESSED_1) return '1';
         if(scancode == SCAN_CODE_PRESSED_2) return '2';
         if(scancode == SCAN_CODE_PRESSED_3) return '3';
@@ -147,3 +150,4 @@ unsigned char get_key(){
     if(scancode == SCAN_CODE_PRESSED_F10) return '\x44';
     return 0; //if key press is not defined (or it is release) function returns value indicating that none key was pressed
 }
+
