@@ -5,6 +5,7 @@
 extern void kernel_main(){
     init();
     print("Welcome to mixOs!\n");
+    start_new_command_entry();
     int quit = 0;
     while(quit != 1) {
         

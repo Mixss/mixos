@@ -7,16 +7,34 @@ void terminal_handler(){
     if(key == '\b'){
         if(command_length>0){
             command_length--;
+            command_buffer[command_length] = 0;
             terminal_backspace();
         }
         return;
     }
+    // run the command
+    if(key == '\n'){
+        command_length = 0;
+        command_handler(command_buffer);
+        start_new_command_entry();
+        return;
+    }
+
+    command_buffer[command_length] = key;
     command_length++;
     putchar(key);
 
 }
 
+void command_handler(char* command){
+    print("\n");
+    print(command_buffer);
+}
+
 void start_new_command_entry(){
+    for(int i=0; i<MAX_COMMAND_LENGTH; i++){
+        command_buffer[i] = 0;
+    }
     print("\n> ");
 }
 
