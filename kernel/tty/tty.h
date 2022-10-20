@@ -21,5 +21,6 @@ void terminal_handler();
 void start_new_command_entry();
 void terminal_backspace();
 void command_handler(char* command);
+void update_cursor(int x, int y);
 
 #endif

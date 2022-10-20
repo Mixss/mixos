@@ -2,6 +2,7 @@
 #include "../io/io.h"
 #include "../stdio/stdio.h"
 #include "../string/string.h"
+#include <stdint.h>
 
 void terminal_handler(){
     char key = get_key();
@@ -53,10 +54,17 @@ void terminal_init(){
             terminal_putchar(' ', j, i);
         }
     }
+    update_cursor(0,0);
+}
 
-    // disable cursor
-    outb(0x3D4, 0x0A);
-	outb(0x3D5, 0x20);
+void update_cursor(int x, int y)
+{
+	uint16_t pos = y * VGA_WIDTH + x;
+ 
+	outb(0x3D4, 0x0F);
+	outb(0x3D5, (uint8_t) (pos & 0xFF));
+	outb(0x3D4, 0x0E);
+	outb(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
 }
 
 void terminal_backspace(){
@@ -64,10 +72,12 @@ void terminal_backspace(){
     terminal_column = get_current_terminal_column();
     set_terminal_row(terminal_row - 1);
     terminal_putchar(' ', terminal_row - 1, terminal_column);
+    update_cursor(terminal_row - 1, terminal_column);
 }
 
 void terminal_putchar(char c, int x, int y){
     *(video_mem + 2*x + VGA_WIDTH*y*2) = c;
+    update_cursor(x+1, y);
 }
 
 char get_char_from_video_mem(int x, int y){
