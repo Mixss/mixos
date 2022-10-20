@@ -1,6 +1,8 @@
 #include "tty.h"
 #include "../io/io.h"
 #include "../stdio/stdio.h"
+#include "../string/string.h"
+
 void terminal_handler(){
     char key = get_key();
     if(key == 0) return;
@@ -28,7 +30,11 @@ void terminal_handler(){
 
 void command_handler(char* command){
     print("\n");
-    print(command_buffer);
+    //print(command_buffer);
+    if((strcmp(command_buffer, "help")) == 1){
+        print("This is help.");
+    }
+    else print("Command not recognized.");
 }
 
 void start_new_command_entry(){
