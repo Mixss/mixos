@@ -3,6 +3,8 @@
 #include "../config.h"
 
 // defining scan codes
+
+// presses
 #define SCAN_CODE_PRESSED_ESCAPE 0x01
 #define SCAN_CODE_PRESSED_1 0x2
 #define SCAN_CODE_PRESSED_2 0x3
@@ -71,9 +73,12 @@
 #define SCAN_CODE_PRESSED_F9 0x43
 #define SCAN_CODE_PRESSED_F10 0x44
 
+// releases
+#define SCAN_CODE_RELEASED_LEFT_SHIFT 0xAA
+
 
 // if function returns 0 it means that any key wasn't pressed/released
 unsigned char get_keyboard_scancode();
-unsigned char get_key_pressed();
+unsigned char get_key();
 
 #endif

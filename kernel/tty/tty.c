@@ -2,7 +2,7 @@
 #include "../io/io.h"
 #include "../stdio/stdio.h"
 void terminal_handler(){
-    char key = get_key_pressed();
+    char key = get_key();
     if(key == 0) return;
     if(key == '\b'){
         if(command_length>0){
