@@ -1,4 +1,4 @@
-FILES = ./build/kernel.asm.o ./build/kernel.o ./build/idt.asm.o ./build/idt.o ./build/memory.o ./build/tty.o ./build/stdio.o ./build/sysutils.o ./build/io.o ./build/keyboard.o ./build/string.o
+FILES = ./build/kernel.asm.o ./build/kernel.o ./build/idt.asm.o ./build/idt.o ./build/memory.o ./build/tty.o ./build/stdio.o ./build/sysutils.o ./build/io.o ./build/keyboard.o ./build/string.o ./build/disk.o
 INCLUDES = -I./kernel
 FLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc
 
@@ -47,6 +47,9 @@ all: ./bin/boot.bin ./bin/kernel.bin
 
 ./build/string.o: ./kernel/string/string.c
 	i686-elf-gcc $(INCLUDES) $(FLAGS) -std=gnu99 -c ./kernel/string/string.c -o ./build/string.o
+
+./build/disk.o: ./kernel/io/disk.c
+	i686-elf-gcc $(INCLUDES) $(FLAGS) -std=gnu99 -c ./kernel/io/disk.c -o ././build/disk.o
 
 clean:
 	rm -rf ./bin/*
