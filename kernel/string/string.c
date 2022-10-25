@@ -8,3 +8,11 @@ int strcmp(char* s1, char* s2){
     }
     return 1;
 }
+
+int strlen(char* string){
+    int i=0;
+    while(string[i] != 0){
+        i++;
+    }
+    return i;
+}
