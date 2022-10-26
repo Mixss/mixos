@@ -11,5 +11,8 @@ void* memset(void* ptr, int c, size_t size)
 }
 
 void *malloc(size_t size) {
-    ;
+    void* address = addres_to_allocate;
+    addres_to_allocate += size;
+    if(addres_to_allocate >= 0xC0000000) return 0;
+    return address;
 }
