@@ -5,4 +5,12 @@
 
 int disk_read_sector(int lba, int number_of_sectors, void* buffer);
 
+struct disk
+{
+    unsigned int type;
+    int sector_size;
+};
+
+
+struct disk* disk_get(int index);
 #endif

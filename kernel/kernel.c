@@ -5,7 +5,7 @@
 #include "io/disk.h"
 #include "memory/memory.h"
 
-#include "filesystem/path.h"
+#include "io/diskstream.h"
 
 extern void kernel_main(){
     init();
@@ -13,11 +13,10 @@ extern void kernel_main(){
 
 	// Test new features here
 
-	struct path_root* root_path = pathparser_parse("0:/bin/shell.exe", NULL);
-
-	if(root_path){
-        print_int(1);
-	}
+    struct disk_stream* stream = diskstream_new(0);
+    diskstreamer_seek(stream, 0x201);
+    unsigned char c = 0;
+    diskstreamer_read(stream, &c, 1);
 
 	// end of test area
 

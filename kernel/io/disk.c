@@ -1,6 +1,8 @@
 #include "io.h"
 #include "disk.h"
 
+struct disk disk;
+
 int disk_read_sector(int lba, int number_of_sectors, void* buffer) {
     // send drive and bits 24 -27 of lba
     outb(0x1F6, (lba >> 24) | 0b11100000 );
@@ -31,4 +33,12 @@ int disk_read_sector(int lba, int number_of_sectors, void* buffer) {
 
     }
 
+}
+
+struct disk* disk_get(int index)
+{
+    if (index != 0)
+        return 0;
+    
+    return &disk;
 }

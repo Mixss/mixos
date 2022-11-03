@@ -1,4 +1,4 @@
-FILES = ./build/kernel.asm.o ./build/kernel.o ./build/idt.asm.o ./build/idt.o ./build/memory.o ./build/tty.o ./build/stdio.o ./build/sysutils.o ./build/io.o ./build/keyboard.o ./build/string.o ./build/disk.o ./build/path.o
+FILES = ./build/kernel.asm.o ./build/kernel.o ./build/idt.asm.o ./build/idt.o ./build/memory.o ./build/tty.o ./build/stdio.o ./build/sysutils.o ./build/io.o ./build/keyboard.o ./build/string.o ./build/disk.o ./build/path.o ./build/diskstream.o
 INCLUDES = -I./kernel
 FLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc
 
@@ -53,6 +53,9 @@ all: ./bin/boot.bin ./bin/kernel.bin
 
 ./build/path.o: ./kernel/filesystem/ppath.c
 	i686-elf-gcc $(INCLUDES) $(FLAGS) -std=gnu99 -c ./kernel/filesystem/ppath.c -o ././build/path.o
+
+./build/diskstream.o: ./kernel/io/diskstream.c
+	i686-elf-gcc $(INCLUDES) $(FLAGS) -std=gnu99 -c ./kernel/io/diskstream.c -o ./build/diskstream.o
 
 clean:
 	rm -rf ./bin/*
