@@ -1,6 +1,6 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
-#include "../config.h"
+#include "config.h"
 
 // defining scan codes
 

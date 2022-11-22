@@ -1,7 +1,7 @@
 #include "tty.h"
-#include "../io/io.h"
-#include "../stdio/stdio.h"
-#include "../string/string.h"
+#include "io.h"
+#include "stdio.h"
+#include "string.h"
 #include <stdint.h>
 
 void terminal_handler(){

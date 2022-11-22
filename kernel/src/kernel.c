@@ -1,15 +1,15 @@
-#include "stdio/stdio.h"
-#include "idt/idt.h"
-#include "tty/tty.h"
+#include "stdio.h"
+#include "idt.h"
+#include "tty.h"
 
-#include "io/disk.h"
-#include "memory/memory.h"
+#include "disk.h"
+#include "memory.h"
 
-#include "io/diskstream.h"
+#include "diskstream.h"
 
 extern void kernel_main(){
     init();
-    print("Welcome to mixOs!\n");
+    print("Welcome to mixOs!!!\n");
 
 	// Test new features here
 

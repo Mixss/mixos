@@ -1,4 +1,4 @@
-#include "../tty/tty.h"
+#include "tty.h"
 #include "stdio.h"
 
 void putchar(char c){

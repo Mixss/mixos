@@ -1,7 +1,7 @@
 #include "diskstream.h"
-#include "../memory/memory.h"
+#include "memory.h"
 
-#include "../config.h"
+#include "config.h"
 
 struct disk_stream* diskstream_new(int disk_id){
     struct disk* disk = disk_get(disk_id);

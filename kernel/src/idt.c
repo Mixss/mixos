@@ -1,9 +1,8 @@
 #include "idt.h"
 #include "config.h"
-#include "../stdio/stdio.h"
-#include "memory/memory.h"
-#include "../sysutils/sysutils.h"
-#include "../io/io.h"
+#include "stdio.h"
+#include "memory.h"
+#include "io.h"
 
 struct idt_desc idt_descriptors[512];
 struct idtr_desc idtr_descriptor;
@@ -31,7 +30,6 @@ void no_interrupt_handler(){
 void idt_zero()
 {
     print("Division by zero!\n");
-    panic();
 }
 
 void idt_set(int interrupt_no, void* address)
