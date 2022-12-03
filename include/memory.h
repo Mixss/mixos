@@ -1,7 +1,7 @@
 #ifndef MEMORY_H
 #define MEMORY_H
 
-#define PROGRAM_MEMORY_START_ADDRESS 0x01000000
+#define PROGRAM_MEMORY_START_ADDRESS 0x02000000
 
 #include <stddef.h>
 
