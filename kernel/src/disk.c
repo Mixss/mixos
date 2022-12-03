@@ -32,7 +32,7 @@ int disk_read_sector(int lba, int number_of_sectors, void* buffer) {
         }
 
     }
-
+    return 0;
 }
 
 struct disk* disk_get(int index)
