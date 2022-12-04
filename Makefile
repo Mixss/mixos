@@ -2,11 +2,11 @@ ODIR=./build
 IDIR=./include
 EXEC=program
 
-_OBJ = kernel.asm.o kernel.o idt.asm.o idt.o memory.o tty.o stdio.o io.o keyboard.o string.o disk.o diskstream.o
+_OBJ = kernel.asm.o kernel.o idt.asm.o idt.o memory.o tty.o stdio.o io.o keyboard.o string.o disk.o diskstream.o program_finder.o 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 FLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -I$(IDIR)
 
-_DEPS = config.h disk.h diskstream.h idt.h io.h keyboard.h memory.h stdio.h string.h tty.h
+_DEPS = config.h disk.h diskstream.h idt.h io.h keyboard.h memory.h stdio.h string.h tty.h program_finder.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 $(ODIR)/%.o: kernel/src/%.c $(DEPS)
@@ -16,7 +16,7 @@ all: ./bin/boot.bin ./bin/kernel.bin
 	rm -rf ./bin/os.bin
 	dd if=./bin/boot.bin >> ./bin/os.bin
 	dd if=./bin/kernel.bin >> ./bin/os.bin
-	dd if=/dev/zero bs=512 count=300 >> ./bin/os.bin 
+	dd if=/dev/zero bs=512 count=100 >> ./bin/os.bin 
 
 ./bin/kernel.bin: $(OBJ)
 	i686-elf-ld -g -relocatable $(OBJ) -o ./build/kernelfull.o

@@ -33,7 +33,12 @@ void command_handler(char* command){
     print("\n");
     //print(command_buffer);
     if((strcmp(command_buffer, "help")) == 1){
-        print("This is help.");
+        print("Available programs:\n");
+        for(int i=0; i < *program_count; i++)
+        {
+            print(program_names[i]);
+            print("\n");
+        }
     }
     else print("Command not recognized.");
 }
@@ -91,4 +96,14 @@ void scroll_terminal(int n) {
             terminal_putchar(c, i, j-1);
         }
     }
+}
+
+void set_programs(void* addresses[], char names[][8], int *number_of_programs)
+{
+    program_addresses = addresses;
+    for(int i=0; i<8; i++)
+        program_names[i] = names[i];
+    
+    program_count = number_of_programs;
+
 }

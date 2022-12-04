@@ -1,8 +1,9 @@
 #include "program_finder.h"
 #include "diskstream.h"
 #include "stdio.h"
+#include <stddef.h>
 
-int find_programs(void* address)
+int find_programs(void* address, void* program_addresses[], char program_names[][PROGRAM_NAME_SIZE], int *number_of_programs)
 {
     struct disk_stream* stream = diskstream_new(0);
     unsigned char bytes[512];
@@ -36,7 +37,22 @@ int find_programs(void* address)
     print("\n");
 
     unsigned char *program_address = (unsigned char*) address;
+
+    *number_of_programs += 1;
+
     int end = 0;
+    // read program name
+
+    for(int i=0; i<PROGRAM_NAME_SIZE; i++)
+    {
+        diskstreamer_seek(stream, SEARCH_BEGIN_ADDRESS + search_offset);
+        diskstreamer_read(stream, &b, 1);
+        
+        program_names[0][i] = b;
+        search_offset++;
+    }
+
+    // read program code
     while(end == 0)
     {
         diskstreamer_seek(stream, SEARCH_BEGIN_ADDRESS + search_offset);
@@ -48,6 +64,13 @@ int find_programs(void* address)
         program_address++;
         search_offset += 1;
     }
+
+    program_addresses[0] = address;
+    print("\n");
+    print(&program_names[0]);
+    print(" at: ");
+    print_int(program_addresses[0]);
+    print("\n");
 
     /*
     if(b == 'H' && end_found == 0 )
