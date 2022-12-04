@@ -15,8 +15,6 @@ int find_programs(void* address, void* program_addresses[], char program_names[]
     {
         diskstreamer_seek(stream, SEARCH_BEGIN_ADDRESS + search_offset);
         diskstreamer_read(stream, &b, 1);
-        // print_int(SEARCH_BEGIN_ADDRESS + search_offset);
-        // print("\n");
         
         if(b == 'M' && begin_found == 0)
             begin_found++;
@@ -32,58 +30,59 @@ int find_programs(void* address, void* program_addresses[], char program_names[]
         search_offset += 1;
     }
 
-    print("Found programs sector at ");
-    print_int(SEARCH_BEGIN_ADDRESS + search_offset);
-    print("\n");
+    // print("Found programs sector at ");
+    // print_int(SEARCH_BEGIN_ADDRESS + search_offset);
+    // print("\n");
 
     unsigned char *program_address = (unsigned char*) address;
-
-    *number_of_programs += 1;
-
-    int end = 0;
-    // read program name
-
-    for(int i=0; i<PROGRAM_NAME_SIZE; i++)
+    unsigned char *last_adr = (unsigned char*) address;
+    int end_of_programs = 0;
+    
+    while(1)
     {
-        diskstreamer_seek(stream, SEARCH_BEGIN_ADDRESS + search_offset);
-        diskstreamer_read(stream, &b, 1);
-        
-        program_names[0][i] = b;
-        search_offset++;
+        int end = 0;
+        // read program name
+
+        for(int i=0; i<PROGRAM_NAME_SIZE; i++)
+        {
+            diskstreamer_seek(stream, SEARCH_BEGIN_ADDRESS + search_offset);
+            diskstreamer_read(stream, &b, 1);
+
+            if(b == 255)
+            {
+                end_of_programs = 1;
+                break;
+            }
+                
+            
+            program_names[*number_of_programs][i] = b;
+            search_offset++;
+        }
+
+        if(end_of_programs == 1)
+            break;
+
+        while(end == 0)
+        {
+            diskstreamer_seek(stream, SEARCH_BEGIN_ADDRESS + search_offset);
+            diskstreamer_read(stream, &b, 1);
+
+            if(b == 0xC3)
+            {
+                end = 1;
+                address = program_address +1;
+            }
+                
+            *program_address = b;
+            program_address++;
+            search_offset += 1;
+        }
+
+        program_addresses[*number_of_programs] = last_adr;
+        last_adr = address;
+
+        *number_of_programs += 1;
     }
-
-    // read program code
-    while(end == 0)
-    {
-        diskstreamer_seek(stream, SEARCH_BEGIN_ADDRESS + search_offset);
-        diskstreamer_read(stream, &b, 1);
-
-        if(b == 0xC3)
-            end = 1;
-        *program_address = b;
-        program_address++;
-        search_offset += 1;
-    }
-
-    program_addresses[0] = address;
-    print("\n");
-    print(&program_names[0]);
-    print(" at: ");
-    print_int(program_addresses[0]);
-    print("\n");
-
-    /*
-    if(b == 'H' && end_found == 0 )
-            end_found++;
-        else if (b == 'A' && end_found == 1)
-            end_found++;
-        else if (b == 'H' && end_found == 2)
-            end_found++;
-        else if (b == 'A' && end_found == 3)
-            end = 1;
-        else
-            end_found = 0;
-    */
 
     return 1;
 }

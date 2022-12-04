@@ -33,14 +33,33 @@ void command_handler(char* command){
     print("\n");
     //print(command_buffer);
     if((strcmp(command_buffer, "help")) == 1){
-        print("Available programs:\n");
+        print("Available programs (");
+        print_int(*program_count);
+        print("):\n");
         for(int i=0; i < *program_count; i++)
         {
             print(program_names[i]);
             print("\n");
         }
     }
-    else print("Command not recognized.");
+    else 
+    {
+        for(int i=0; i<*program_count; i++)
+        {
+            if((strcmp(command_buffer, program_names[i])) == 1)
+            {
+                unsigned char* ptr = program_addresses[i];
+                int r = ((int(*)())ptr)();
+                print("Process ended with return value: ");
+                print_int(r);
+                print("\n");
+
+                return;
+            }
+        }
+        print("Command not recognized.");
+    }
+    
 }
 
 void start_new_command_entry(){
