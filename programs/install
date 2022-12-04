@@ -1,0 +1,4 @@
+dd if=./programs/marks/begin_mark >> ./bin/os.bin
+dd if=./programs/names/hello >> ./bin/os.bin
+dd if=./programs/programs/bin/hello.bin >> ./bin/os.bin
+dd if=./programs/marks/end_mark >> ./bin/os.bin
