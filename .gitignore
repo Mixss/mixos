@@ -1,3 +1,5 @@
 .vscode/
 build/
 bin/
+programs/programs
+programs/names

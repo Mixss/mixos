@@ -3,6 +3,7 @@
 #include "stdio.h"
 #include "string.h"
 #include <stdint.h>
+#include "keyboard.h"
 
 void terminal_handler(){
     char key = get_key();

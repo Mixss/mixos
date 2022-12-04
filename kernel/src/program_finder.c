@@ -6,7 +6,6 @@
 int find_programs(void* address, void* program_addresses[], char program_names[][PROGRAM_NAME_SIZE], int *number_of_programs)
 {
     struct disk_stream* stream = diskstream_new(0);
-    unsigned char bytes[512];
     unsigned char b;
     int search_offset = 0;
     int begin_found = 0;

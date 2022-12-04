@@ -2,10 +2,13 @@
 #include "idt.h"
 #include "tty.h"
 
-#include "disk.h"
-#include "memory.h"
-
 #include "program_finder.h"
+
+void init(){
+    idt_init();
+    terminal_init();
+    enable_interrupts();
+}
 
 extern void kernel_main(){
     init();
@@ -30,12 +33,4 @@ extern void kernel_main(){
     }
     
     return;
-}
-
-
-
-void init(){
-    idt_init();
-    terminal_init();
-    enable_interrupts();
 }
