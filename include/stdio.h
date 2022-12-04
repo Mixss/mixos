@@ -5,6 +5,7 @@
 void print(char* s);
 void putchar(char c);
 void print_int(int value);
+void print_hex(int value);
 int get_current_terminal_row();
 int get_current_terminal_column();
 void set_terminal_row(int row);

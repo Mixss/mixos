@@ -59,3 +59,29 @@ void print_int(int value){
         putchar(digits[i]);
     }
 }
+
+void print_hex(int value)
+{
+    char digits[MAX_INT_PRINT_LENGHT]; 
+    char n;
+    char i=0;
+    while(1){
+        n = value % 16;
+        digits[i] = (char)(n);
+        value /= 16;
+        if(value == 0) break;
+        i++;
+    }
+    print("0x");
+    for(;i>=0; i--){
+        if(digits[i] > 9)
+        {
+            putchar((char)(digits[i] + 55));
+        }
+        else
+        {
+            putchar((char)(digits[i] + 48));
+        }
+            
+    }
+}
