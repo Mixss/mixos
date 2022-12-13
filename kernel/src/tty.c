@@ -43,6 +43,18 @@ void command_handler(char* command){
             print("\n");
         }
     }
+    else if (strcmp(command_buffer, "info") == 1)
+    {
+        print("Addres of print() is ");
+        print_hex(print);
+        print("\n");
+        print("Addres of putchar() is ");
+        print_hex(putchar);
+        print("\n");
+        print("Addres of print_int() is ");
+        print_hex(print_int);
+        print("\n");
+    }
     else 
     {
         for(int i=0; i<*program_count; i++)

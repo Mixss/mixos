@@ -16,6 +16,7 @@ extern void kernel_main(){
 
 	// Test new features here
 
+
     // end of test area
 
     char program_names[MAX_NUMBER_OF_PROGRAMS][PROGRAM_NAME_SIZE];
