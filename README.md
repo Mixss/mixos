@@ -35,7 +35,7 @@ After booting up the system your program should be listed under the `help` comma
 
 ## Compilation
 
-The system is compiled using the `i686-elf` cross-compiler and `nasm`. The compilation of the source code is set in the `Makefile`. The entire build process can be handled using 
+The system is compiled using the `i686-elf` cross-compiler and `nasm`. The compilation of the source code is set in the `Makefile`. The entire build process (with the installation of programs) can be handled using 
 ```
 ./build.sh
 ```
