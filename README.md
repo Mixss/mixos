@@ -2,6 +2,9 @@
 
 This is 32-bit operating system for x86 cpu architecture written using **C** and **NASM**. The main aim of this system was to be able to run programs which could be written by any user and which would be stored on the hard disk.
 
+![image](https://user-images.githubusercontent.com/19227717/214267676-aed99973-323c-4583-8aee-045c9f2e4c80.png)
+
+
 ## Usage
 
 This operating system could probably run on any hardware however, it has only been tested with `qemu`. To use it you can execute the `run` script:
