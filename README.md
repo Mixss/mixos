@@ -9,7 +9,7 @@ This is 32-bit operating system for x86 cpu architecture written using **C** and
 
 This operating system could probably run on any hardware however, it has only been tested with `qemu`. To use it you can execute the `run` script:
 ```
-/run
+./run
 ``` 
 
 ## Terminal
